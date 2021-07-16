@@ -11,8 +11,11 @@
 # one(['tic', 'tac', 'toe']) → {'tic':1, 'tac':1, 'toe':1}
     
 def one(items):
-    pass
-
+    main_dict=dict.fromkeys(items)
+    for item in main_dict.keys():
+        a=items.count(item)
+        main_dict[item]=a
+    return main_dict
 # <QUESTION 2>
 
 # Given two numbers, a & b, and an operator, evaluate the operation between a & b
@@ -26,9 +29,15 @@ def one(items):
 # two(7, 3, '-') → 4
 # two(3, 1.5, '*') → 4.5
 # two(-5, 2, '/') → -2.5
-
+import operator
+ops = {
+    '+' : operator.add,
+    '-' : operator.sub,
+    '*' : operator.mul,
+    '/' : operator.truediv
+}
 def two(a, b, operator):
-    pass
+    return ops[operator](a,b)
 
 # <QUESTION 3>
 
@@ -48,7 +57,12 @@ def two(a, b, operator):
 # We can use `x ** 0.5` to get the square root of `x`
 
 def three(num):
-    pass
+    if (num ** 0.5).is_integer(): return num
+    else:
+        for i in range(num,0,-1):
+            if (i ** 0.5).is_integer():
+                return i
+    
 
 # <QUESTION 4>
 
@@ -61,7 +75,16 @@ def three(num):
 # four(10, 50) → 10
 
 def four(a, b):
-    pass
+    
+    if a>b:
+        if (a/b).is_integer(): return b
+        while(a):
+            a, b = b  % a, a
+        return b
+    else:
+        if (b/a).is_integer(): return a
+
+        
 
 # <QUESTION 5>
 
@@ -81,4 +104,14 @@ def four(a, b):
 # five('54321') → '54321'
 
 def five(string):
-    pass
+    if string.isnumeric(): return string
+    new_string=''
+    for char in string:
+        if char == 'a':new_string+='z'
+        elif char == 'A': new_string+='Z'
+        elif char != ' ':
+            new_string+=chr(ord(char)-1)
+        else:
+            new_string+=' '
+    return new_string
+
